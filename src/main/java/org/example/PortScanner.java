@@ -36,7 +36,8 @@ public class PortScanner implements Runnable {
     private void scanPort() throws IOException {
         Socket socket = new Socket();
         try {
-            socket.connect(new InetSocketAddress(ip, port), 1000);
+            socket.connect(new InetSocketAddress(ip, port), 2000);
+            socket.close();
             this.status = "OPEN";
         } catch (SocketTimeoutException e) {
             this.status = "TIMEOUT";
