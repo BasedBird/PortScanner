@@ -1,4 +1,4 @@
-package org.example;
+package com.app.PortScanner;
 
 import java.io.FileInputStream;
 import java.io.IOException;

@@ -1,2 +1,1 @@
-rootProject.name = "Multithreading"
-
+rootProject.name = "PortScanner"
