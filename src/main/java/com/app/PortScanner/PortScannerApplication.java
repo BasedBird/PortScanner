@@ -17,12 +17,23 @@ public class PortScannerApplication {
 		SpringApplication.run(PortScannerApplication.class, args);
 	}
 
+	/**
+	 * Returns request IP address, mainly used for debugging
+	 * @throws InterruptedException
+	 */
 	@GetMapping("/")
 	public String index(HttpServletRequest request) throws InterruptedException {
 		System.out.println("index");
 		return request.getRemoteAddr();
 	}
 
+	/**
+	 * Scans either a single port or all ports depending on whether a port number is supplied
+	 * @param request http request data (mainly for getting IP address)
+	 * @param portParam the port to check (all ports are scanned if port is not supplied)
+	 * @return open ports in
+	 * @throws InterruptedException
+	 */
 	@GetMapping("/test")
 	public String portScan(HttpServletRequest request, @RequestParam("port") Optional<String> portParam) throws InterruptedException {
 		String port = portParam.orElse("");
@@ -33,6 +44,12 @@ public class PortScannerApplication {
 		return scan.getStatus();
 	}
 
+	/**
+	 * Scans all ports from request IP
+	 * @param request http request data (mainly for getting IP address)
+	 * @return
+	 * @throws InterruptedException
+	 */
 	private String portScanAll(HttpServletRequest request) throws InterruptedException {
 		if (PortScanner.IN_PROGRESS) {
 			System.out.println("Rejected");

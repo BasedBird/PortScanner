@@ -12,6 +12,11 @@ public class PortScannerThread implements Runnable {
     private String status;
     private Thread thread;
 
+    /**
+     * Constructor for PortScanner thread
+     * @param ip the IP address to scan
+     * @param port the port to scan
+     */
     PortScannerThread(String ip, int port){
         this.IP = ip;
         this.PORT_NUM = port;
@@ -22,6 +27,10 @@ public class PortScannerThread implements Runnable {
         this(IP, Integer.parseInt(PORT_NUM));
     }
 
+    /**
+     * Scans the specified port, status is set to OPEN if the open was open, and TIMEOUT if the connection times out
+     * @throws IOException
+     */
     private void scanPort() throws IOException {
         Socket socket = new Socket();
         try {
@@ -33,6 +42,9 @@ public class PortScannerThread implements Runnable {
         socket.close();
     }
 
+    /**
+     * Runs the scanPort method
+     */
     @Override
     public void run() {
         try {
@@ -42,6 +54,9 @@ public class PortScannerThread implements Runnable {
         }
     }
 
+    /**
+     * Creates new Thread object and begins scanning port
+     */
     public void start() {
         if (this.thread == null) {
             thread = new Thread(this);

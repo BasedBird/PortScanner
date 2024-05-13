@@ -11,11 +11,19 @@ public class PortScanner {
     private static final int TIMEOUT = 2000;
     public static boolean IN_PROGRESS = false;
 
+    /**
+     * Basic constructor
+     * @param IP the IP address to scan
+     */
     PortScanner(String IP) {
         this.IP = IP;
         this.interestingPorts = new ArrayList<Integer>();
     }
 
+    /**
+     * Create and execute PortScan threads
+     * @throws InterruptedException
+     */
     public void run() throws InterruptedException {
         PortScanner.IN_PROGRESS = true;
         ArrayList<PortScannerThread> threads = new ArrayList<>();
@@ -36,6 +44,11 @@ public class PortScanner {
         System.out.println("SCAN COMPLETE");
     }
 
+    /**
+     * Run threads in batches of 100,000 to avoid buffer overflow errors
+     * @param threads list of PortScan threads
+     * @throws InterruptedException
+     */
     public void runBatch(ArrayList<PortScannerThread> threads) throws InterruptedException {
         int counter = 0;
         int batchNum = 1;
@@ -51,6 +64,10 @@ public class PortScanner {
         }
     }
 
+    /**
+     * Parses scanned ports and returns open ports as a cleaner string
+     * @return list of open ports
+     */
     public String getInterestingPorts() {
         StringBuilder ret = new StringBuilder();
         for (Integer port : this.interestingPorts) {
